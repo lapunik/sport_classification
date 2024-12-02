@@ -159,7 +159,7 @@ cython_debug/
 *.pdf
 
 # Trained models (too large)
-/saved_models
+saved_models/
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
