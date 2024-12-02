@@ -13,5 +13,5 @@ Sport Classification is a machine learning project aimed at classifying sports a
 
 ```models/```: Contains pre-trained and custom models.  
 ```utils/```: Utility scripts for data manipulation.  
-```train.py```: Main script for training models.  
+```train.py```: Script for training models.  
 ```test.py```: Testing and evaluation script.  
