@@ -1,15 +1,12 @@
-from utils.data_loader import load_data
-from utils.data_processor import process_data
-import models.models as m
-from sklearn.metrics import classification_report
+from train import create_model
+from test import use_model
 
-data = load_data("first100.csv")
+model = "native_bayes"
+vectorizer = "vec"
+data = "sportoclanky.csv"
 
-X_train, X_test, y_train, y_test = process_data(data)
-
-model = m.native_bayes(X_train, y_train)
-
-
-
-y_pred = model.predict(X_test)
-print(classification_report(y_test, y_pred,zero_division=1))
+title = "Česká reprezentace vyhrála zápas v kopané"
+perex = "Včera večer česká reprezentace porazila soupeře v dramatickém zápase golem z penaly."
+    
+create_model(model, vectorizer, data)
+use_model(model, vectorizer, title, perex)
