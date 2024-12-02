@@ -37,5 +37,4 @@ czech_stop_words = [
     "u", "určitě", "už", "v", "vám", "vámi", "vás", "váš", "vaše", "vaši",
     "ve", "večer", "vedle", "vice", "vlastně", "však", "všechno", "všichni",
     "vůbec", "vy", "vždy", "za", "zač", "zatímco", "zda", "zde", "ze",
-    "zpět", "zprávy", "že"
-]
+    "zpět", "zprávy", "že"]
