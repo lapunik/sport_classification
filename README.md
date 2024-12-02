@@ -3,10 +3,10 @@ Sport Classification is a machine learning project aimed at classifying sports a
 
 
 ## Features
-* Data Preprocessing: Tools for cleaning and normalizing input data.  
-* Model Training: Pre-built scripts for training deep learning models.  
-* Testing: Functions to evaluate model performance.  
-* Extensibility: Modular codebase for adding new models or datasets.
+* Data Preprocessing: Tools for cleaning and normalizing input data.\
+* Model Training: Pre-built scripts for training deep learning models.\  
+* Testing: Functions to evaluate model performance.\  
+* Extensibility: Modular codebase for adding new models or datasets.\
 
   
 ## Project Structure
