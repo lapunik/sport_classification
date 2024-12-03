@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
 from transformers import BertTokenizer
+from sentence_transformers import SentenceTransformer
 from sklearn.model_selection import train_test_split
 import utils.csl as csl
 from joblib import dump
@@ -10,12 +11,17 @@ def process_data(model_name, vectorizer_name, data):
     data["text"] = data["rss_title"] + " "  + data["rss_perex"]
     # TODO: try randomstate = none!
     X_train, X_test, y_train, y_test = train_test_split(data["text"], data["category"], test_size=0.2, random_state=42)
-    if model_name == "transformer":
+    if model_name == "bert":
         tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
         X_train_vec = tokenizer(X_train.tolist(), truncation=True, padding=True, max_length=512)
         X_test_vec = tokenizer(X_test.tolist(), truncation=True, padding=True, max_length=512)
         labels = list(set(y_train))  # Získání názvů tříd
         dump({"tokenizer": tokenizer, "labels":labels}, "saved_models/transformer.pkl")
+    elif vectorizer_name == "sentence_transformer":
+        vectorizer = SentenceTransformer('paraphrase-MiniLM-L6-v2')
+        X_train_vec = vectorizer.encode(X_train.tolist(), show_progress_bar=True)
+        X_test_vec = vectorizer.encode(X_test.tolist(), show_progress_bar=True)
+        dump(vectorizer, "saved_models/" + vectorizer_name + ".pkl")
 
     else:
         # TODO: other types of vectorizer
@@ -27,7 +33,7 @@ def process_data(model_name, vectorizer_name, data):
         elif vectorizer_name == "count":
             vectorizer = CountVectorizer(stop_words = csl.czech_stop_words)
         elif vectorizer_name == 'hashing':
-            vectorizer = HashingVectorizer(stop_words=csl.czech_stop_words)
+            vectorizer = HashingVectorizer(stop_words=csl.czech_stop_words,alternate_sign=False)
         else:
             raise ValueError("Model: " + vectorizer_name + " not included")
 
