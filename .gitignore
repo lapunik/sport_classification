@@ -160,6 +160,11 @@ cython_debug/
 
 # Trained models (too large)
 saved_models/
+results/
+
+# cluster main
+run_cluster.py
+
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
