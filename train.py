@@ -9,7 +9,7 @@ def create_model(model_name, vectorizer_name, name_data, retrain):
     if os.path.exists("saved_models/" + model_name + "_" + vectorizer_name + ".pkl") and not retrain:
         return
     
-    if os.path.exists("saved_models/transformer.pkl") and not retrain:
+    if os.path.exists("saved_models/bert.pkl") and not retrain:
         return
 
     data = load_data(name_data)

@@ -1,5 +1,4 @@
 from sklearn.metrics import classification_report
-from transformers import BertTokenizer, BertForSequenceClassification
 from utils.transformer_data_format import TextDataset, training_args
 from joblib import load
 import torch
@@ -39,8 +38,8 @@ def report(y_test, X_test, model,model_name):
 def predict(model_name, vectorizer_name, title, perex):
     text = title + " "  + perex
     
-    if model_name == "transformer":
-        data = load("saved_models/transformer.pkl")
+    if model_name == "bert":
+        data = load("saved_models/bert.pkl")
         model = data["model"]
         tokenizer = data["tokenizer"]
         labels = data["labels"]

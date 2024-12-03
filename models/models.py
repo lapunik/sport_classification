@@ -9,7 +9,7 @@ from os import remove
 
 def train_model(name, vectorizer_name, X_train, y_train):
     
-    if name == "transformer":
+    if name == "bert":
         dataset = TextDataset(X_train, y_train)
         model = BertForSequenceClassification.from_pretrained("bert-base-multilingual-uncased", num_labels=len(set(y_train)))
 
@@ -21,12 +21,12 @@ def train_model(name, vectorizer_name, X_train, y_train):
 
         trainer.train()
 
-        tok_path = "saved_models/transformer.pkl"
+        tok_path = "saved_models/bert.pkl"
         data = load(tok_path)
         tokenizer = data["tokenizer"]
         labels = data["labels"]
         remove(tok_path)
-        dump({"model": model, "tokenizer": tokenizer, "labels":labels}, "saved_models/transformer.pkl")
+        dump({"model": model, "tokenizer": tokenizer, "labels":labels}, "saved_models/bert.pkl")
 
     else:
         # TODO: More models and make comparism
