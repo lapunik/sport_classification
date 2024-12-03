@@ -1,14 +1,18 @@
 from train import create_model
 from test import use_model
 
-# TODO: List of models and vectorizers
-model = "svm"
-vectorizer = "vec"
-data = "sportoclanky"
-retrain = True
+available_models = ["transformer","native_bayes", "logistic_regression", "svm"]
+available_vectorizers = ["count", "tfidf", "hashing"]
+available_data = ["sportoclanky", "first100", "first10"]
 
-title = "Česká reprezentace vyhrála zápas v kopané"
-perex = "Včera večer česká reprezentace porazila soupeře v dramatickém zápase golem z penaly."
+model = "transformer"
+vectorizer = "tfidf"
+data = "firts100"
+retrain = False
+
+title = "Vstupenky na ME basketbalistek jsou v prodeji, soupeřky Češek ale zatím nejsou známy"
+perex = "Začal prodej lístků na mistrovství Evropy basketbalistek v příštím roce, během něhož se odehraje jedna ze základních skupin v Brně. Na svém webu o tom informoval CZ.Basketball. K dispozici jsou zatím celodenní vstupenky do části hlediště, další budou uvolněny po 8. březnu."
     
-create_model(model, vectorizer, data, retrain)
+
+# create_model(model, vectorizer, data, retrain)
 use_model(model, vectorizer, title, perex)
