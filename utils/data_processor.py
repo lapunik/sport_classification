@@ -1,6 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
 from transformers import BertTokenizer
-from sentence_transformers import SentenceTransformer
 from sklearn.model_selection import train_test_split
 import utils.csl as csl
 from joblib import dump
@@ -17,14 +16,8 @@ def process_data(model_name, vectorizer_name, data):
         X_test_vec = tokenizer(X_test.tolist(), truncation=True, padding=True, max_length=512)
         labels = list(set(y_train))  # Získání názvů tříd
         dump({"tokenizer": tokenizer, "labels":labels}, "saved_models/transformer.pkl")
-    elif vectorizer_name == "sentence_transformer":
-        vectorizer = SentenceTransformer('paraphrase-MiniLM-L6-v2')
-        X_train_vec = vectorizer.encode(X_train.tolist(), show_progress_bar=True)
-        X_test_vec = vectorizer.encode(X_test.tolist(), show_progress_bar=True)
-        dump(vectorizer, "saved_models/" + vectorizer_name + ".pkl")
 
     else:
-        # TODO: other types of vectorizer
         # TODO: other types of stoplist
         # TODO: set max_features = for example 5000 (number of word limit by usage)
         # TODO: try some ngram_range (ngram_range=(1, 3) from one word to three words gram)
