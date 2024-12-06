@@ -163,7 +163,7 @@ saved_models/
 results/
 
 # cluster main
-run_cluster.py
+cluster.py
 
 
 # PyCharm
