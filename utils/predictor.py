@@ -5,21 +5,22 @@ import torch
 
 
 #  TODO: Visualization of report (Confusion matrix, ROC, AUC?)
-def report(y_test, X_test, model,model_name):
-    if model_name == "transformer":
-        test_dataset = TextDataset(X_test, y_test)
-        test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=8, shuffle=False)
-        data = load("saved_models/transformer.pkl")
+def report(y_test, X_test, model,model_name,preprocesor_name):
+    if model_name == "bert":
+        data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")
         model = data["model"]
         label = data["labels"]
 
-
-        model.eval()
         all_preds = []
         all_labels = []
-        with torch.no_grad():
+        inputs = {}
+        test_dataset = TextDataset(X_test, y_test)
+        test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=8, shuffle=False)
+        with torch.inference_mode():
             for batch in test_loader:
-                inputs = {key: val.to(model.device) for key, val in batch.items() if key != "labels"}
+                for key, val in batch.items():
+                    if key != "labels":
+                        inputs.update({key: val.to(model.device)})
                 labels = batch["labels"].to(model.device)
                 outputs = model(**inputs)
                 logits = outputs.logits
@@ -32,19 +33,22 @@ def report(y_test, X_test, model,model_name):
 
         print(classification_report(all_labels_labels, all_preds_labels, zero_division=1))
     else:
-        print(classification_report(y_test, model.predict(X_test),zero_division=1))
+        data = load("saved_models/" + model_name  + "_" +  preprocesor_name + ".pkl")
+        labels = data["labels"]
+        model = data["model"]
+        print(classification_report(y_test, model.predict(X_test),zero_division=1,target_names=labels))
 
 
-def predict(model_name, vectorizer_name, title, perex):
+def predict(model_name, preprocesor_name, title, perex):
     text = title + " "  + perex
     
     if model_name == "bert":
-        data = load("saved_models/bert.pkl")
+        data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")
         model = data["model"]
-        tokenizer = data["tokenizer"]
+        preprocesor = data["preprocesor"]
         labels = data["labels"]
 
-        inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
+        inputs = preprocesor(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
         device = model.device
         inputs = {key: val.to(device) for key, val in inputs.items()}
 
@@ -55,8 +59,9 @@ def predict(model_name, vectorizer_name, title, perex):
 
         return labels[predicted_class_id]
     else:
-        data = load("saved_models/" + model_name + "_" + vectorizer_name + ".pkl")
+        data = load("saved_models/" + model_name + "_" + preprocesor_name + ".pkl")
         model = data["model"]
-        vectorizer = data["vectorizer"]
-        text_vec = vectorizer.transform([text])
-        return model.predict(text_vec)[0]
+        preprocesor = data["preprocesor"]
+        labels = data["labels"]
+        text_vec = preprocesor.transform([text])
+        return labels[model.predict(text_vec)[0]]

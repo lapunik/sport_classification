@@ -29,12 +29,12 @@ setuptools==70.0.0
 six==1.16.0
 sympy==1.13.1
 threadpoolctl==3.5.0
-tokenizers==0.20.3
-torch==2.5.1+cu118
-torchaudio==2.5.1+cu118
-torchvision==0.20.1+cu118
+tokenizers==0.21.0
+torch==2.5.1
+torchaudio==2.5.1
+torchvision==0.20.1
 tqdm==4.67.1
-transformers==4.46.3
+transformers==4.47.0
 typing_extensions==4.9.0
 tzdata==2024.2
 urllib3==2.2.3

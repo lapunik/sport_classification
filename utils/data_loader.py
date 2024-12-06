@@ -9,7 +9,7 @@ def load_data(name):
         raise FileNotFoundError("file not found.")
 
     try:
-        return pd.read_csv(csv_path)
+        return pd.read_csv(csv_path)    
     except pd.errors.EmptyDataError:
         raise ValueError("empty CSV file")
     except pd.errors.ParserError:
