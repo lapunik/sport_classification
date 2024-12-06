@@ -159,7 +159,7 @@ cython_debug/
 *.pdf
 
 # Trained models (too large)
-.pkl
+*.pkl
 results/
 
 # cluster main
