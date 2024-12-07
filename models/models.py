@@ -12,22 +12,6 @@ import numpy as np
 from joblib import dump, load
 from os import remove, environ
 
-def check_data(dataset):
-    # Kontrola encodings
-    for key, val in dataset.encodings.items():
-        tensor = torch.tensor(val)
-        if torch.isnan(tensor).any() or torch.isinf(tensor).any():
-            print(f"Encodings for {key} contain NaN or Inf values")
-            return False
-
-    # Kontrola labels
-    labels_tensor = torch.tensor(dataset.numeric_labels)
-    if torch.isnan(labels_tensor).any() or torch.isinf(labels_tensor).any():
-        print("Labels contain NaN or Inf values")
-        return False
-
-    return True
-
 def train_model(name, preprocesor_name, X_train, y_train):
 
     if name == "bert":

@@ -28,7 +28,7 @@ training_args = TrainingArguments(
     eval_strategy="epoch",  
     save_strategy="epoch",
     load_best_model_at_end=True,  
-    metric_for_best_model="loss",
+    # metric_for_best_model="loss",
     logging_dir='./logs',
     logging_steps=10,
 )
