@@ -165,6 +165,7 @@ results/
 # cluster main
 cluster.sh
 
+*.code-workspace
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

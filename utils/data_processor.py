@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
-from transformers import BertTokenizer
+from transformers import BertTokenizer, AutoTokenizer
+from collections import Counter
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import utils.csl as csl
@@ -7,17 +8,33 @@ from joblib import dump
 
  
 def process_data(model_name, preprocesor_name, data):
-    data["text"] = data["rss_title"] + " "  + data["rss_perex"]
-   
+    class_counts = Counter(data["category"])
+    classes_to_keep = [cl for cl, count in class_counts.items() if count >= 2]
+    mask = data["category"].isin(classes_to_keep)
+    data = data[mask].copy()
+
+    data.loc[:,"text"] = data["rss_title"] + " "  + data["rss_perex"]
+    # data["text"] = data["rss_title"]
     label_encoder = LabelEncoder()
     y_en = label_encoder.fit_transform(data["category"])
     labels = label_encoder.classes_.tolist()  
-    X_train, X_test, y_train, y_test = train_test_split(data["text"], y_en, test_size=0.2, random_state=42)
+
+    X_train, X_test, y_train, y_test = train_test_split(data["text"], y_en, test_size=0.2, random_state=42,stratify=y_en)
 
     if model_name == "bert":
-        preprocesor = BertTokenizer.from_pretrained("bert-base-multilingual-uncased")
-        X_train_vec = preprocesor(X_train.tolist(), truncation=True, padding=True, max_length=512)
-        X_test_vec = preprocesor(X_test.tolist(), truncation=True, padding=True, max_length=512)
+        # preprocesor = AutoTokenizer.from_pretrained("Seznam/dist-mpnet-czeng-cs-en")
+        # preprocesor = AutoTokenizer.from_pretrained("UWB-AIR/Czert-B-base-cased")
+        preprocesor = BertTokenizer.from_pretrained("Seznam/dist-mpnet-czeng-cs-en")
+        max_length = min(512, max(len(preprocesor.encode(text)) for text in data["text"]))
+        
+        X_train_s, X_eval, y_train_s, y_eval = train_test_split(X_train, y_train, test_size=0.2, random_state=42,stratify=y_train)
+        X_train_vec = {
+            "train": preprocesor(X_train_s.tolist(), truncation=True, padding=True, max_length=max_length),
+            "eval": preprocesor(X_eval.tolist(), truncation=True, padding=True, max_length=max_length)}
+        y_train = {
+            "train": y_train_s,
+            "eval": y_eval}
+        X_test_vec = preprocesor(X_test.tolist(), truncation=True, padding=True, max_length=max_length)
         preprocesor_name = "bert"
     # TODO: other types of stoplist
     elif preprocesor_name == "tfidf": 

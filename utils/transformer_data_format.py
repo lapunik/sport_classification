@@ -19,11 +19,16 @@ class TextDataset(Dataset):
     
 training_args = TrainingArguments(
     output_dir='./results',
-    num_train_epochs=3,
-    per_device_train_batch_size=8,
+    num_train_epochs=3,  
+    per_device_train_batch_size=8, 
     per_device_eval_batch_size=8,
-    warmup_steps=500,
+    warmup_steps=100, 
     weight_decay=0.01,
+    learning_rate=5e-5,  
+    eval_strategy="epoch",  
+    save_strategy="epoch",
+    load_best_model_at_end=True,  
+    metric_for_best_model="loss",
     logging_dir='./logs',
     logging_steps=10,
 )

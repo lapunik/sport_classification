@@ -27,6 +27,6 @@ retrain = True
 title = "Dakar 2025: Vše o 46. ročníku nejslavnější rallye v Saudské Arábii"
 perex = "Začátek sportovního roku bude jako vždy patřit nejslavnější světové rallye. Dakar se pojede i v roce 2025 už pošesté za sebou v Saudské Arábii, a to v termínu od 3. do 17. ledna. Kompletní programový i výsledkový servis slavného motoristického závodu vám nabízí Sport.cz."
     
-
-create_model(model, preprocesor, data, retrain)
-use_model(model, preprocesor, title, perex)
+if __name__ == "__main__":
+    create_model(model, preprocesor, data, retrain)
+    use_model(model, preprocesor, title, perex)

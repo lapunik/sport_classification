@@ -48,15 +48,12 @@ def predict(model_name, preprocesor_name, title, perex):
         preprocesor = data["preprocesor"]
         labels = data["labels"]
 
-        inputs = preprocesor(text, return_tensors="pt", truncation=True, padding=True, max_length=512)
         device = model.device
-        inputs = {key: val.to(device) for key, val in inputs.items()}
-
-        with torch.no_grad():
+        inputs = preprocesor(text, return_tensors="pt", truncation=True, padding=True, max_length=512).to(device)
+        with torch.inference_mode():
             outputs = model(**inputs)
             logits = outputs.logits
             predicted_class_id = logits.argmax().item()
-
         return labels[predicted_class_id]
     else:
         data = load("saved_models/" + model_name + "_" + preprocesor_name + ".pkl")
