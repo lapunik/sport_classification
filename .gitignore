@@ -160,6 +160,7 @@ cython_debug/
 
 # Trained models (too large)
 *.pkl
+!bert_bert.pkl
 results/
 
 # cluster main
