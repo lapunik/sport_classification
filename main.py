@@ -24,7 +24,7 @@ available_data = ["sportoclanky",
 model = "bert"
 preprocesor = "count"
 data = "sportoclanky"
-retrain = True
+retrain = False
 
 title = "Krejčíková vyhrála podruhé anketu Zlatý kanár. Navrátil uveden do Síně slávy"
 perex = "Wimbledonská vítězka Barbora Krejčíková vyhrála podruhé tenisovou anketu Zlatý kanár. Osmadvacetiletá hráčka z Ivančic vystřídala na trůnu loňskou wimbledonskou šampionku Markétu Vondroušovou, získala také ocenění pro hráčku roku. Mezi muži uspěl poprvé Tomáš Macháč. Cenu Českého tenisového svazu převzal bývalý daviscupový kapitán Jaroslav Navrátil, který byl uveden i do nově vzniklé Síně slávy."
