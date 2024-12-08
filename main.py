@@ -22,8 +22,8 @@ available_data = ["sportoclanky",
                   "first10"]
 
 model = "svm"
-preprocesor = "count"
-data = "first10"
+preprocesor = "tfidf"
+data = "sportoclanky"
 retrain = True
 
 title = "Krejčíková vyhrála podruhé anketu Zlatý kanár. Navrátil uveden do Síně slávy"
