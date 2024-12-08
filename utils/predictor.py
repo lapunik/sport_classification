@@ -31,12 +31,12 @@ def report(y_test, X_test,model_name,preprocesor_name):
         all_preds_labels = [label[pred] for pred in all_preds]
         all_labels_labels = [label[l] for l in all_labels]
 
-        print(classification_report(all_labels_labels, all_preds_labels, zero_division=1))
+        print(classification_report(all_labels_labels, all_preds_labels, zero_division=1,digits=4))
     else:
         data = load("saved_models/" + model_name  + "_" +  preprocesor_name + ".pkl")
         labels = data["labels"]
         model = data["model"]
-        print(classification_report(y_test, model.predict(X_test),zero_division=1,target_names=labels))
+        print(classification_report(y_test, model.predict(X_test),zero_division=1,target_names=labels,digits=4))
 
 
 def predict(model_name, preprocesor_name, title, perex):

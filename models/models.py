@@ -6,14 +6,13 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from utils.transformer_data_format import TextDataset, training_args
-from transformers import BertForSequenceClassification, Trainer
-from sklearn.model_selection import train_test_split
+from transformers import AutoModelForSequenceClassification, Trainer
 import torch
 import numpy as np
 from joblib import dump, load
 from os import remove
 
-def train_model(name, preprocesor_name, X_train, y_train):
+def train_model(name, preprocesor_name, X_train, y_train, bert_model = "Seznam/simcse-small-e-czech"): # "Seznam/simcse-small-e-czech", "Seznam/dist-mpnet-czeng-cs-en"
 
     if name == "bert":
 
@@ -21,9 +20,9 @@ def train_model(name, preprocesor_name, X_train, y_train):
         dataset_eval = TextDataset(X_train["eval"], y_train["eval"])
         
         device = torch.device("cuda")
-        model = BertForSequenceClassification.from_pretrained("Seznam/dist-mpnet-czeng-cs-en",
+        model = AutoModelForSequenceClassification.from_pretrained(bert_model,
                                                                num_labels=len(set(np.concatenate((y_train["train"], y_train["eval"]))))).to(device)
-        # checkpoint = "./results/checkpoint-600" 
+        # checkpoint = "./results/checkpoint-26694" 
         trainer = Trainer(
             model=model,
             args=training_args,
