@@ -7,7 +7,7 @@ import utils.csl as csl
 from joblib import dump
 
  
-def process_data(model_name, preprocesor_name, data, min_class_count=2, test_size=0.2, random_state=42,bret_model = "Seznam/dist-mpnet-paracrawl-cs-en"): # "Seznam/dist-mpnet-czeng-cs-en" "Seznam/simcse-small-e-czech"
+def process_data(model_name, preprocesor_name, data, min_class_count=2, test_size=0.2, random_state=42,bret_model = "Seznam/dist-mpnet-paracrawl-cs-en"): 
     class_counts = Counter(data["category"])
     classes_to_keep = [cl for cl, count in class_counts.items() if count >= min_class_count]
     mask = data["category"].isin(classes_to_keep)

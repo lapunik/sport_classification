@@ -2,7 +2,7 @@ from train import create_model
 from test import use_model
 
 # acc/f1
-available_models = ["bert", # 0.9791/0.9786 (Seznam/simcse-small-e-czech), 0.9862/0.9861 ("Seznam/dist-mpnet-czeng-cs-en")
+available_models = ["bert", # 0.9879/0.9878("Seznam/dist-mpnet-paracrawl-cs-en") 
                     "native_bayes", # tfidf: 0.98/0.98, count: 0.98/0.98, hashing: 0.98/0.98 
                     "logistic_regression", # tfidf: 0.97/0.97  , count: 0.98/0.98, hashing: 0.97/0.96
                     "decision_tree", # tfidf:0.93/0.93, count: 0.94/0.93, hashing: 0.93/0.93
