@@ -167,7 +167,7 @@ results/
 cluster.sh
 
 *.code-workspace
-*/.vscode
+.vscode
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
