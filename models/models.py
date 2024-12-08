@@ -3,30 +3,15 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from utils.transformer_data_format import TextDataset, training_args
-from transformers import BertForSequenceClassification, Trainer, TFAutoModel, AutoModel
+from transformers import BertForSequenceClassification, Trainer
 from sklearn.model_selection import train_test_split
 import torch
 import numpy as np
 from joblib import dump, load
-from os import remove, environ
-
-def check_data(dataset):
-    # Kontrola encodings
-    for key, val in dataset.encodings.items():
-        tensor = torch.tensor(val)
-        if torch.isnan(tensor).any() or torch.isinf(tensor).any():
-            print(f"Encodings for {key} contain NaN or Inf values")
-            return False
-
-    # Kontrola labels
-    labels_tensor = torch.tensor(dataset.numeric_labels)
-    if torch.isnan(labels_tensor).any() or torch.isinf(labels_tensor).any():
-        print("Labels contain NaN or Inf values")
-        return False
-
-    return True
+from os import remove
 
 def train_model(name, preprocesor_name, X_train, y_train):
 
@@ -52,13 +37,15 @@ def train_model(name, preprocesor_name, X_train, y_train):
         # TODO: More types of kernel
         model = SVC(kernel="sigmoid",verbose=True)
     elif name == "logistic_regression":
-        model = LogisticRegression(max_iter=1000, verbose=True)
+        model = LogisticRegression(solver="sag",verbose=True)
     elif name == "native_bayes":
-        model = MultinomialNB()
+        model = MultinomialNB(alpha=0.0006) # count: 0.006, tfidf: 0.011, hashing: 0.0006 (Note: n-grams decrease performance)
     elif name == "decision_tree":
-        model = DecisionTreeClassifier()
+        model = DecisionTreeClassifier(criterion="gini")
+    elif name == "kneighbors":
+        model = KNeighborsClassifier()
     elif name == "mlp":
-        model = MLPClassifier(verbose=True)
+        model = MLPClassifier(max_iter=20,hidden_layer_sizes=(100,50),activation="tanh",early_stopping=True,solver="adam", learning_rate="adaptive" ,verbose=True)
     elif name == "random_forest":
         model = RandomForestClassifier(verbose=True)
     else:
@@ -73,5 +60,3 @@ def train_model(name, preprocesor_name, X_train, y_train):
     labels = data["labels"]
     remove(path)
     dump({"model": model, "preprocesor": preprocesor, "labels":labels}, "saved_models/" + name  + "_" +  preprocesor_name + ".pkl")
-
-    return model
