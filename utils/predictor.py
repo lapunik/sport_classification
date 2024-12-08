@@ -3,8 +3,6 @@ from utils.transformer_data_format import TextDataset, training_args
 from joblib import load
 import torch
 
-
-#  TODO: Visualization of report (Confusion matrix, ROC, AUC?)
 def report(y_test, X_test,model_name,preprocesor_name):
     if model_name == "bert":
         data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")

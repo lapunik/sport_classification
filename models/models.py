@@ -12,8 +12,7 @@ import numpy as np
 from joblib import dump, load
 from os import remove
 
-def train_model(name, preprocesor_name, X_train, y_train, bert_model = "Seznam/simcse-small-e-czech"): # "Seznam/simcse-small-e-czech", "Seznam/dist-mpnet-czeng-cs-en"
-
+def train_model(name, preprocesor_name, X_train, y_train, bert_model =  "Seznam/dist-mpnet-paracrawl-cs-en"): # "Seznam/dist-mpnet-czeng-cs-en" "Seznam/simcse-small-e-czech"
     if name == "bert":
 
         dataset = TextDataset(X_train["train"], y_train["train"])
