@@ -5,7 +5,7 @@ import torch
 
 
 #  TODO: Visualization of report (Confusion matrix, ROC, AUC?)
-def report(y_test, X_test, model,model_name,preprocesor_name):
+def report(y_test, X_test,model_name,preprocesor_name):
     if model_name == "bert":
         data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")
         model = data["model"]

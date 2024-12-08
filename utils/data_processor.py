@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer, HashingVectorizer
-from transformers import BertTokenizer, AutoTokenizer
+from transformers import BertTokenizer
 from collections import Counter
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
@@ -14,16 +14,16 @@ def process_data(model_name, preprocesor_name, data):
     data = data[mask].copy()
 
     data.loc[:,"text"] = data["rss_title"] + " "  + data["rss_perex"]
-    # data["text"] = data["rss_title"]
     label_encoder = LabelEncoder()
     y_en = label_encoder.fit_transform(data["category"])
     labels = label_encoder.classes_.tolist()  
 
     X_train, X_test, y_train, y_test = train_test_split(data["text"], y_en, test_size=0.2, random_state=42,stratify=y_en)
 
+
     if model_name == "bert":
-        # preprocesor = AutoTokenizer.from_pretrained("Seznam/dist-mpnet-czeng-cs-en")
-        # preprocesor = AutoTokenizer.from_pretrained("UWB-AIR/Czert-B-base-cased")
+        # "Seznam/dist-mpnet-czeng-cs-en"
+        # "UWB-AIR/Czert-B-base-cased"
         preprocesor = BertTokenizer.from_pretrained("Seznam/dist-mpnet-czeng-cs-en")
         max_length = min(512, max(len(preprocesor.encode(text)) for text in data["text"]))
         
@@ -38,7 +38,7 @@ def process_data(model_name, preprocesor_name, data):
         preprocesor_name = "bert"
     # TODO: other types of stoplist
     elif preprocesor_name == "tfidf": 
-        preprocesor = TfidfVectorizer(stop_words = csl.czech_stop_words, ngram_range=(1, 2)) # TODO: Trying ngrams
+        preprocesor = TfidfVectorizer(stop_words = csl.czech_stop_words) # n-grams decrease efficiency
     elif preprocesor_name == "count":
         preprocesor = CountVectorizer(stop_words = csl.czech_stop_words)
     elif preprocesor_name == 'hashing':
