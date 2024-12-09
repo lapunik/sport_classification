@@ -9,12 +9,13 @@ Sport Classification is a machine learning project aimed at classifying sports a
 git clone https://github.com/lapunik/sport_classification.git
 cd sport_classification   
 ```
-2.Set up a Python environment:
+
+2. Set up a Python environment:
 ```bash
-python -m venv env
-source env/bin/activate
+python -m venv venv
+venv\Scripts\activate
 ```
-Install dependencies:
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
