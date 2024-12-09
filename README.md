@@ -29,20 +29,20 @@ pip install torch torchvision torchaudio
 ## Usage
 
 The main.py file serves as the primary entry point for the program. It allows users to select from a range of available models (```available_models```) and vectorizers (```available_preprocesors```) for text data processing. For the specific model ```"bert"```, the selection of preprocessor is not relevant as the model's tokenizer is used by default. Except for bert, models are not included in the repository because of the size.
-## Configuration
+### Configuration
 
 * **Model**: Select one of the available names for the required model.
 * **Preprocesor**: Select one of the available vectorizer names for preprocessing text data. 
 * **Data**:  Provide the name of the CSV file containing the training data in the ```/data``` folder. The file must contain category, title and perex columns see below.
 * **Retrain**: Set to ```False``` if you want to use the pre-trained model stored in the ```/saved_models``` folder. If the pre-trained model is not available, the model will be trained from training data.
 
-## CSV format:
+### CSV format:
 
 Column __category__: Label of the sport to which this entry relates.
 Column __title__: Title of the article. 
 Column __perex__: Perex of the article.
 
-## For example:
+### For example:
 
 ```python
 model = "mlp"
