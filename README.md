@@ -38,9 +38,9 @@ The main.py file serves as the primary entry point for the program. It allows us
 
 ### CSV format:
 
-Column __category__: Label of the sport to which this entry relates.
-Column __title__: Title of the article. 
-Column __perex__: Perex of the article.
+Column __category__: Label of the sport to which this entry relates.\
+Column __title__: Title of the article.\
+Column __perex__: Perex of the article.\
 
 ### For example:
 
