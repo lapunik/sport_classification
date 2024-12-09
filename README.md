@@ -70,7 +70,7 @@ perex = "McLaren si zásluhou Landa Norrise dojel v Abú Zabí pro vítězství 
 ```utils/data_loader```: Provides the ability to load training and test datasets.    
 ```utils/data_processor```: Focuses on data pre-processing for machine learning tasks. It performs operations like tokenization, vectorization, and any necessary data cleaning to prepare the data for training models.  
 ```utils/predictor```: Allows test the model and report the success of the training. It also provides a function for predicting new data from already trained models
-```utils/transformer_data_format```: Defines the data format and training arguments for training a transformer-based model (BERT). Includes a TextDataset class for processing text data in a format suitable for training and specifies the training arguments for this model.  
+```utils/transformer_data_format```: Defines the data format and training arguments for training a transformer-based model (BERT). Includes a TextDataset class for processing text data in a format suitable for training and specifies the training arguments for this model.     
 ```utils/cls```: Contains a list of Czech stop words that are used for preprocessing text using vectorizers. Stop words are common words that are often removed from text data before training models because they can add noise and do not contribute significantly to the model learning process.  
 ```data/```: Space for your training dataset.  
 ```saved_models/```: Computed model for using.   
