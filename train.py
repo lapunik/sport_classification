@@ -2,7 +2,6 @@ from utils.data_loader import load_data
 from utils.data_processor import process_data
 from utils.predictor import report
 from models.models import train_model
-import time
 import os
 
 def create_model(model_name, preprocessor_name, name_data, retrain):
