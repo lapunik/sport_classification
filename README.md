@@ -19,6 +19,8 @@ venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+or if you have no gpu:
+pip install torch torchvision torchaudio
 ```
 
 ## Features

@@ -18,7 +18,7 @@ def train_model(name, preprocesor_name, X_train, y_train, bert_model =  "Seznam/
         dataset = TextDataset(X_train["train"], y_train["train"])
         dataset_eval = TextDataset(X_train["eval"], y_train["eval"])
         
-        device = torch.device("cuda")
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model = AutoModelForSequenceClassification.from_pretrained(bert_model,
                                                                num_labels=len(set(np.concatenate((y_train["train"], y_train["eval"]))))).to(device)
         # checkpoint = "./results/checkpoint-26694" 

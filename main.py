@@ -26,9 +26,9 @@ preprocesor = "count"
 data = "sportoclanky"
 retrain = False
 
-title = "Krejčíková vyhrála podruhé anketu Zlatý kanár. Navrátil uveden do Síně slávy"
-perex = "Wimbledonská vítězka Barbora Krejčíková vyhrála podruhé tenisovou anketu Zlatý kanár. Osmadvacetiletá hráčka z Ivančic vystřídala na trůnu loňskou wimbledonskou šampionku Markétu Vondroušovou, získala také ocenění pro hráčku roku. Mezi muži uspěl poprvé Tomáš Macháč. Cenu Českého tenisového svazu převzal bývalý daviscupový kapitán Jaroslav Navrátil, který byl uveden i do nově vzniklé Síně slávy."
+title = "Pohár konstruktérů vyhrává McLaren, pro vítězství si v Abú Zabí dojel Norris"
+perex = "McLaren si zásluhou Landa Norrise dojel v Abú Zabí pro vítězství v letošním Poháru konstruktérů formule 1. Norris vyrážel z pole position a první místo udržel po dobu trvání celého závodu. Naopak jeho týmový kolega Oscar Piastri se po kolizi v prvním kole propadl a dojel desátý. Druhý dojel Carlos Sainz a třetí Charles Leclerc, ale Ferrari to na zisk týmového titulu nestačilo."
 
 if __name__ == '__main__':  
-    create_model(model, preprocesor, data, retrain)
+    # create_model(model, preprocesor, data, retrain)
     use_model(model, preprocesor, title, perex)
