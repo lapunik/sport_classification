@@ -3,7 +3,7 @@ from utils.transformer_data_format import TextDataset, training_args
 from joblib import load
 import torch
 
-def report(y_test, X_test,model_name,preprocesor_name):
+def report(y_test, X_test,model_name,preprocessor_name):
     if model_name == "bert":
         data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")
         model = data["model"]
@@ -31,32 +31,35 @@ def report(y_test, X_test,model_name,preprocesor_name):
 
         print(classification_report(all_labels_labels, all_preds_labels, zero_division=1,digits=4))
     else:
-        data = load("saved_models/" + model_name  + "_" +  preprocesor_name + ".pkl")
+        data = load("saved_models/" + model_name  + "_" +  preprocessor_name + ".pkl")
         labels = data["labels"]
         model = data["model"]
         print(classification_report(y_test, model.predict(X_test),zero_division=1,target_names=labels,digits=4))
 
 
-def predict(model_name, preprocesor_name, title, perex):
+def predict(model_name, preprocessor_name, title, perex):
     text = title + " "  + perex
     
     if model_name == "bert":
         data = load("saved_models/"+ model_name + "_" + model_name + ".pkl")
         model = data["model"]
-        preprocesor = data["preprocesor"]
+        preprocessor = data["preprocessor"]
         labels = data["labels"]
 
         device = model.device
-        inputs = preprocesor(text, return_tensors="pt", truncation=True, padding=True, max_length=512).to(device)
+        inputs = preprocessor(text, return_tensors="pt", truncation=True, padding=True, max_length=512).to(device)
         with torch.inference_mode():
             outputs = model(**inputs)
             logits = outputs.logits
             predicted_class_id = logits.argmax().item()
-        return labels[predicted_class_id]
+        sport = labels[predicted_class_id]
+        return sport
     else:
-        data = load("saved_models/" + model_name + "_" + preprocesor_name + ".pkl")
+        data = load("saved_models/" + model_name + "_" + preprocessor_name + ".pkl")
         model = data["model"]
-        preprocesor = data["preprocesor"]
+        preprocessor = data["preprocessor"]
         labels = data["labels"]
-        text_vec = preprocesor.transform([text])
-        return labels[model.predict(text_vec)[0]]
+        
+        text_vec = preprocessor.transform([text])
+        sport = labels[model.predict(text_vec)[0]]
+        return sport

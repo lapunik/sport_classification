@@ -12,7 +12,7 @@ import numpy as np
 from joblib import dump, load
 from os import remove
 
-def train_model(name, preprocesor_name, X_train, y_train, bert_model =  "Seznam/dist-mpnet-paracrawl-cs-en"): 
+def train_model(name, preprocessor_name, X_train, y_train, bert_model =  "Seznam/dist-mpnet-paracrawl-cs-en"): 
     if name == "bert":
 
         dataset = TextDataset(X_train["train"], y_train["train"])
@@ -30,9 +30,8 @@ def train_model(name, preprocesor_name, X_train, y_train, bert_model =  "Seznam/
         )
         # trainer.train(resume_from_checkpoint=checkpoint)
         trainer.train()
-        preprocesor_name = "bert"
+        preprocessor_name = "bert"
     elif name == "svm":
-        # TODO: More types of kernel
         model = SVC(kernel="sigmoid",verbose=True)
     elif name == "logistic_regression":
         model = LogisticRegression(solver="sag",verbose=True)
@@ -52,9 +51,9 @@ def train_model(name, preprocesor_name, X_train, y_train, bert_model =  "Seznam/
     if name != "bert":
         model.fit(X_train, y_train)
 
-    path = "saved_models/"+ preprocesor_name +".pkl"
+    path = "saved_models/"+ preprocessor_name +".pkl"
     data = load(path)
-    preprocesor = data["preprocesor"]
+    preprocessor = data["preprocessor"]
     labels = data["labels"]
     remove(path)
-    dump({"model": model, "preprocesor": preprocesor, "labels":labels}, "saved_models/" + name  + "_" +  preprocesor_name + ".pkl")
+    dump({"model": model, "preprocessor": preprocessor, "labels":labels}, "saved_models/" + name  + "_" +  preprocessor_name + ".pkl")
