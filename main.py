@@ -1,7 +1,6 @@
 from train import create_model
 from test import use_model
 
-# acc/f1
 available_models = ["bert", 
                     "native_bayes", 
                     "logistic_regression", 
@@ -16,7 +15,8 @@ available_preprocesors = ["count",
                          "tfidf", 
                          "hashing",]
 
-available_data = ["sportoclanky"]
+available_data = ["sportoclanky"] #.csv
+
 
 model = "bert"
 preprocesor = "count"
