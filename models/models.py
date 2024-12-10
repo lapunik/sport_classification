@@ -35,7 +35,7 @@ def train_model(name, preprocessor_name, X_train, y_train, bert_model =  "Seznam
         model = SVC(kernel="sigmoid",verbose=True)
     elif name == "logistic_regression":
         model = LogisticRegression(solver="sag",verbose=True)
-    elif name == "native_bayes":
+    elif name == "naive_bayes":
         model = MultinomialNB(alpha=0.0006) # count: 0.006, tfidf: 0.011, hashing: 0.0006 (Note: n-grams decrease performance)
     elif name == "decision_tree":
         model = DecisionTreeClassifier(criterion="gini")

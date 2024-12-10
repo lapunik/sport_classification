@@ -2,7 +2,7 @@ from train import create_model
 from test import use_model
 
 available_models = ["bert", 
-                    "native_bayes", 
+                    "naive_bayes", 
                     "logistic_regression", 
                     "decision_tree", 
                     "mlp", 
